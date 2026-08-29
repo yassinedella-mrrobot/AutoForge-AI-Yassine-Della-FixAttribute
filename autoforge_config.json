@@ -1,0 +1,9 @@
+{
+    "gemini_api_key": "",
+    "gemini_model": "gemini-2.5-flash",
+    "language": "AR",
+    "theme": "dark",
+    "auto_skip_installed": true,
+    "custom_paths": [],
+    "enable_animations": true
+}

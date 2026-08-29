@@ -1,0 +1,89 @@
+{
+  "categories": {
+    "audiology": {
+      "icon": "🦻",
+      "label_ar": "برامج السمعيات والعيادات",
+      "label_fr": "Audiologie & Prothèses",
+      "keywords": ["hansaton", "audifon", "audiserv", "hearing", "acoust", "noah", "oticon", "phonak", "signia", "widex", "interacoustics"]
+    },
+    "drivers": {
+      "icon": "🔌",
+      "label_ar": "تعريفات الأجهزة والمنافذ",
+      "label_fr": "Pilotes & Interfaces",
+      "keywords": ["hipro", "driver", "usb", "nlw", "ftdi", "com", "prolific", "cp210x", "ch340"]
+    },
+    "runtimes": {
+      "icon": "⚙️",
+      "label_ar": "مكتبات وبيئات التشغيل",
+      "label_fr": "Runtimes & Dépendances",
+      "priority": 100,
+      "keywords": ["vcredist", "vc_redist", "dotnet", "directx", "runtime", "c++", "visual c++", "framework", "xna"]
+    },
+    "browsers": {
+      "icon": "🌐",
+      "label_ar": "متصفحات الإنترنت",
+      "label_fr": "Navigateurs Web",
+      "keywords": ["chrome", "firefox", "edge", "brave", "opera", "vivaldi", "chromium"]
+    },
+    "remote_and_tools": {
+      "icon": "🖥️",
+      "label_ar": "التحكم عن بعد والمشاركة",
+      "label_fr": "Contrôle à Distance",
+      "keywords": ["anydesk", "teamviewer", "rustdesk", "remote", "ultraviewer", "vnc"]
+    },
+    "compression": {
+      "icon": "📦",
+      "label_ar": "أدوات الضغط والأرشفة",
+      "label_fr": "Compression & Archives",
+      "keywords": ["winrar", "rar", "7z", "7zip", "zip", "peazip", "bandizip"]
+    },
+    "multimedia": {
+      "icon": "🎬",
+      "label_ar": "الوسائط المتعددة والمشغلات",
+      "label_fr": "Multimédia & Codecs",
+      "keywords": ["vlc", "player", "media", "codec", "k-lite", "mpv", "potplayer", "xploview", "microscope", "cam"]
+    },
+    "documents": {
+      "icon": "📄",
+      "label_ar": "المستندات وقارئات PDF",
+      "label_fr": "Bureautique & PDF",
+      "keywords": ["pdf", "acrobat", "reader", "foxit", "sumatra", "office", "libreoffice"]
+    }
+  },
+  "installer_flags": {
+    "winrar": {
+      "match": ["winrar", "rar"],
+      "args": ["/s"]
+    },
+    "7zip": {
+      "match": ["7z", "7zip"],
+      "args": ["/S"]
+    },
+    "anydesk": {
+      "match": ["anydesk"],
+      "args": ["--install", "C:\\Program Files (x86)\\AnyDesk", "--start-with-win", "--silent"]
+    },
+    "rustdesk": {
+      "match": ["rustdesk"],
+      "args": ["--silent-install"]
+    },
+    "chrome": {
+      "match": ["chrome", "googlechrome"],
+      "args": ["/silent", "/install"]
+    },
+    "vcredist": {
+      "match": ["vcredist", "vc_redist", "dotnet", "directx"],
+      "args": ["/q", "/norestart", "/passive"]
+    },
+    "inno_standard": {
+      "match": ["driver", "hipro", "vlc", "k-lite", "xploview", "hansaton", "audifon"],
+      "args": ["/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-"]
+    },
+    "default_exe": {
+      "args": ["/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-", "/qn", "/s"]
+    },
+    "default_msi": {
+      "args": ["/qn", "/norestart", "ALLUSERS=1", "ACCEPT_EULA=1", "LIMITUI=ALL"]
+    }
+  }
+}

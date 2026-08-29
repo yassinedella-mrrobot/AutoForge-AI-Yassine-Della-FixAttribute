@@ -1,7 +1,7 @@
 @echo off
-title AutoForge AI Stable Builder
+title AutoForge AI Enterprise Builder
 echo =========================================================
-echo   BUILDING: AutoForge AI (by Yassine Della) [STABLE EXE]
+echo   BUILDING: AutoForge AI (by Yassine Della) [ENTERPRISE EXE]
 echo =========================================================
 echo.
 echo [1/2] Installing Dependencies...
@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 echo.
 echo [2/2] Compiling Executable with Admin Privileges (uac-admin)...
-pyinstaller --noconsole --onefile --uac-admin --name "AutoForge-AI" --distpath ./build_output src/autoforge_app.py
+pyinstaller --noconsole --onefile --uac-admin --add-data "src/config/installer_rules.json;src/config" --name "AutoForge-AI" --distpath ./build_output src/autoforge_app.py
 
 echo.
 echo =========================================================
