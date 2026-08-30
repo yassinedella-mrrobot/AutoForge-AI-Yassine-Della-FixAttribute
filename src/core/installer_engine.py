@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import subprocess
 import threading
@@ -11,10 +12,18 @@ class InstallerEngine:
 
     def load_rules(self, rules_path):
         if not rules_path:
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            rules_path = os.path.join(base_dir, "config", "installer_rules.json")
+            candidates = [
+                os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "installer_rules.json"),
+                os.path.join(getattr(sys, '_MEIPASS', ''), "src", "config", "installer_rules.json"),
+                os.path.join(getattr(sys, '_MEIPASS', ''), "config", "installer_rules.json"),
+                os.path.join(os.getcwd(), "src", "config", "installer_rules.json")
+            ]
+            for candidate in candidates:
+                if candidate and os.path.exists(candidate):
+                    rules_path = candidate
+                    break
         
-        if os.path.exists(rules_path):
+        if rules_path and os.path.exists(rules_path):
             try:
                 with open(rules_path, "r", encoding="utf-8") as f:
                     return json.load(f)

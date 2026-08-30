@@ -3,8 +3,9 @@ import sys
 import ctypes
 
 # -------------------------------------------------------------
-# Ensure Root and Source Path are available for imports
+# Clean Environment & Ensure Root/Source Paths are available
 # -------------------------------------------------------------
+os.environ.pop("PYTHONHOME", None)
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(CURRENT_DIR) if not getattr(sys, 'frozen', False) else os.path.dirname(sys.executable)
 

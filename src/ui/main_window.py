@@ -392,6 +392,8 @@ class MainWindow(ctk.CTk):
         self.log("[Settings] Paramètres mis à jour avec succès.")
 
     def run_dynamic_animations(self):
+        if not self.winfo_exists():
+            return
         self.anim_step = (self.anim_step + 1) % 60
         neon_cyan_shades = ["#00ffcc", "#38bdf8", "#818cf8", "#c084fc", "#38bdf8", "#00ffcc"]
         neon_border_shades = ["#0284c7", "#0ea5e9", "#06b6d4", "#10b981", "#0284c7"]
@@ -405,11 +407,13 @@ class MainWindow(ctk.CTk):
         dots = "·" * ((self.anim_step % 4) + 1)
         author_animated = f"⚡ NEURAL LINK: YASSINE DELLA [LIVE{dots}] ⚡"
 
-        self.title_label.configure(text_color=title_color)
-        self.author_label.configure(text=author_animated)
-        self.header_card.configure(border_color=border_glow)
-
-        self.after(120, self.run_dynamic_animations)
+        try:
+            self.title_label.configure(text_color=title_color)
+            self.author_label.configure(text=author_animated)
+            self.header_card.configure(border_color=border_glow)
+            self.after(120, self.run_dynamic_animations)
+        except Exception:
+            pass
 
     def toggle_language(self):
         self.current_lang = "FR" if self.current_lang == "AR" else "AR"

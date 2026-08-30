@@ -69,7 +69,7 @@ class RegistryScanner:
     @staticmethod
     def clean_name_tokens(name):
         cleaned = re.sub(r'[\._\-\(\)\[\]]', ' ', name)
-        cleaned = re.sub(r'\b(setup|installer|install|zip|win|v\d+(\.\d+)*|\d+|x86|x64|fr|en|final|stable|beta)\b', '', cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(r'\b(setup|installer|install|exe|msi|msp|zip|win|v\d+(\.\d+)*|\d+|x86|x64|fr|en|final|stable|beta)\b', '', cleaned, flags=re.IGNORECASE)
         return [w.lower() for w in cleaned.split() if len(w) > 2]
 
     @classmethod
@@ -79,6 +79,8 @@ class RegistryScanner:
         Returns a tuple: (is_installed: bool, installed_version: str, matched_name: str)
         """
         pkg_lower = package_name.lower().replace(".exe", "").replace(".msi", "").replace(".msp", "")
+        pkg_normalized = re.sub(r'[^a-z0-9]', '', pkg_lower)
+        pkg_core = re.sub(r'(setup|installer|install|x86|x64|final|stable)$', '', pkg_normalized)
         
         # 1. Exact or direct substring match
         for installed_name_lower, meta in installed_dict.items():
@@ -89,8 +91,17 @@ class RegistryScanner:
             if len(installed_name_lower) > 3 and installed_name_lower in pkg_lower:
                 return True, meta.get("version", ""), meta.get("display_name", "")
 
+            # Normalized alphanumeric match
+            inst_normalized = re.sub(r'[^a-z0-9]', '', installed_name_lower)
+            if pkg_normalized == inst_normalized:
+                return True, meta.get("version", ""), meta.get("display_name", "")
+            if len(pkg_core) > 3 and pkg_core in inst_normalized:
+                return True, meta.get("version", ""), meta.get("display_name", "")
+            if len(inst_normalized) > 3 and inst_normalized in pkg_normalized:
+                return True, meta.get("version", ""), meta.get("display_name", "")
+
         # 2. Token based fuzzy match
-        tokens = cls.clean_name_tokens(package_name)
+        tokens = cls.clean_name_tokens(pkg_lower)
         if tokens:
             for installed_name_lower, meta in installed_dict.items():
                 if all(tok in installed_name_lower for tok in tokens):
